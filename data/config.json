@@ -1,0 +1,14 @@
+{
+    "usernames": {
+        "custom": false,
+        "amount": 1000,
+        "length": 3
+    },
+    "retry": {
+        "enabled": true,
+        "max_attempts": 5
+    },
+    "threads": 100,
+    "timeout": 30,
+    "webhook": ""
+}

@@ -1,0 +1,49 @@
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Dependency directories
+vendor/
+
+# Go workspace file
+go.work
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Data files (keep structure but not actual data)
+data/usernames.txt
+data/proxies.txt
+data/blacklist.txt
+data/valids.txt
+
+# Keep config.json as template
+!data/config.json
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
