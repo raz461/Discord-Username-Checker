@@ -30,6 +30,9 @@ This script allows you to check the availability of Discord usernames in bulk wi
 }
 ```
 
+## Other Information
+- Make sure to have the `data` directory on the same path as the executable. 
+
 #
 ### Example
 ![Example](https://i.imgur.com/d7IlP8P.png)
