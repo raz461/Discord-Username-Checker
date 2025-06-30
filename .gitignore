@@ -32,12 +32,6 @@ go.work
 ehthumbs.db
 Thumbs.db
 
-# Data files (keep structure but not actual data)
-data/usernames.txt
-data/proxies.txt
-data/blacklist.txt
-data/valids.txt
-
 # Keep config.json as template
 !data/config.json
 
