@@ -1,2 +1,0 @@
-users.exe
-pause
