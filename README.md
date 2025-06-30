@@ -2,10 +2,10 @@
 This script allows you to check the availability of Discord usernames in bulk with multi-threading support.
 
 ## Configuration
-1. Install Go 1.24+ on your system. (Or use the builded version found here)
+1. Install Go 1.24+ on your system. (Or use the builded version found [here](https://github.com/raz461/Discord-Username-Checker/releases/tag/Discord-Username-Checker))
 2. Fill in the `data/config.json` file with the required information.
 3. Add your proxies to the `data/proxies.txt` file (optional).
-4. Run the script using `go run .` or build with `go build -o users.exe`. (Or use the pre-built binary found here)
+4. Run the script using `go run .` or build with `go build -o users.exe`. (Or use the pre-built binary found [here](https://github.com/raz461/Discord-Username-Checker/releases/tag/Discord-Username-Checker))
 
 ## Misc
 - Proxies are optional but recommended for large lists.
