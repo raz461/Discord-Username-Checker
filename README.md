@@ -37,4 +37,4 @@ This script allows you to check the availability of Discord usernames in bulk wi
 ### Example
 ![Example](https://i.imgur.com/d7IlP8P.png)
 
-[Discord](https://discord.gg/undesync)
+[Discord](https://discord.gg/undesync) | [Recommended proxies](https://dashboard.suborbit.al/?r=NUBSISISI)
