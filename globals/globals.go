@@ -186,15 +186,7 @@ func SaveValidUser(username string) error {
 	validUsernameMutex.Lock()
 	defer validUsernameMutex.Unlock()
 
-	for _, valid := range Usernames {
-		if username == valid {
-			return nil
-		}
-	}
-
-	Usernames = append(Usernames, username)
-
-	file, err := os.Create(ValidsFile)
+	file, err := os.OpenFile(ValidsFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		return err
 	}
@@ -204,10 +196,8 @@ func SaveValidUser(username string) error {
 		}
 	}()
 
-	for _, valid := range Usernames {
-		if _, err := file.WriteString(valid + "\n"); err != nil {
-			return err
-		}
+	if _, err := file.WriteString(username + "\n"); err != nil {
+		return err
 	}
 
 	return nil

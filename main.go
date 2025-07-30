@@ -101,19 +101,25 @@ func main() {
 		}
 	}()
 
-	semaphore := make(chan struct{}, globals.Config.Threads)
+	usernameChannel := make(chan string, globals.Config.Threads)
 	var wg sync.WaitGroup
 
-	for idx, username := range globals.Usernames {
-		semaphore <- struct{}{}
+	for i := 1; i <= globals.Config.Threads; i++ {
 		wg.Add(1)
-
-		go func(user string, thread int) {
+		go func(workerID int) {
 			defer wg.Done()
-			defer func() { <-semaphore }()
-			checker.CheckerInit(user, thread)
-		}(username, idx)
+			for username := range usernameChannel {
+				checker.CheckerInit(username, workerID)
+			}
+		}(i)
 	}
+
+	go func() {
+		for _, username := range globals.Usernames {
+			usernameChannel <- username
+		}
+		close(usernameChannel)
+	}()
 
 	wg.Wait()
 	logger.Info("All checks completed.")

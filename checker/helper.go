@@ -53,6 +53,10 @@ func CheckUsername(username string) bool {
 			proxyURL, err := url.Parse(proxy)
 			if err != nil {
 				logger.Error(fmt.Sprintf("Invalid proxy URL: %v", err))
+				if attempt < maxAttempts {
+					logger.Info(fmt.Sprintf("Retrying request for username [%s], attempt %d", username, attempt+1))
+					continue
+				}
 				return true
 			}
 			transport := &http.Transport{Proxy: http.ProxyURL(proxyURL)}
@@ -64,6 +68,10 @@ func CheckUsername(username string) bool {
 		req, err := http.NewRequest(http.MethodPost, globals.DiscordUsernameCheckAPI, bytes.NewBuffer(jsonBody))
 		if err != nil {
 			logger.Error(fmt.Sprintf("Error creating request: %v", err))
+			if attempt < maxAttempts {
+				logger.Info(fmt.Sprintf("Retrying request for username [%s], attempt %d", username, attempt+1))
+				continue
+			}
 			return true
 		}
 		req.Header.Set("Content-Type", "application/json")
@@ -73,7 +81,7 @@ func CheckUsername(username string) bool {
 		if err != nil {
 			logger.Error(fmt.Sprintf("Error making request: %v", err))
 			if attempt < maxAttempts {
-				logger.Info(fmt.Sprintf("Retrying request for username [%s], attempt %d", username, attempt))
+				logger.Info(fmt.Sprintf("Retrying request for username [%s], attempt %d", username, attempt+1))
 				continue
 			}
 			return true
@@ -85,9 +93,22 @@ func CheckUsername(username string) bool {
 			}
 		}()
 
+		if res.StatusCode != http.StatusOK {
+			logger.Error(fmt.Sprintf("API returned status code %d for username [%s]", res.StatusCode, username))
+			if attempt < maxAttempts {
+				logger.Info(fmt.Sprintf("Retrying request for username [%s], attempt %d", username, attempt+1))
+				continue
+			}
+			return true
+		}
+
 		var usernameResponse types.UsernameResponse
 		if err := json.NewDecoder(res.Body).Decode(&usernameResponse); err != nil {
 			logger.Error(fmt.Sprintf("Error decoding response: %v", err))
+			if attempt < maxAttempts {
+				logger.Info(fmt.Sprintf("Retrying request for username [%s], attempt %d", username, attempt+1))
+				continue
+			}
 			return true
 		}
 
